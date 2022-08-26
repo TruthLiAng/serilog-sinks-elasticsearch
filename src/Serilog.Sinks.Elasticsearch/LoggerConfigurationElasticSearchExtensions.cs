@@ -85,20 +85,20 @@ namespace Serilog
         /// <param name="connectionGlobalHeaders">A comma or semi-colon separated list of key value pairs of headers to be added to each elastic http request</param>
         [Obsolete("New code should not be compiled against this obsolete overload"), EditorBrowsable(EditorBrowsableState.Never)]
         public static LoggerConfiguration Elasticsearch(
-           this LoggerSinkConfiguration loggerSinkConfiguration,
-           string nodeUris,
-           string indexFormat,
-           string templateName,
-           string typeName,
-           int batchPostingLimit,
-           int period,
-           bool inlineFields,
-           LogEventLevel restrictedToMinimumLevel,
-           string bufferBaseFilename,
-           long? bufferFileSizeLimitBytes,
-           long bufferLogShippingInterval,
-           string connectionGlobalHeaders,
-           LoggingLevelSwitch levelSwitch)
+            this LoggerSinkConfiguration loggerSinkConfiguration,
+            string nodeUris,
+            string indexFormat,
+            string templateName,
+            string typeName,
+            int batchPostingLimit,
+            int period,
+            bool inlineFields,
+            LogEventLevel restrictedToMinimumLevel,
+            string bufferBaseFilename,
+            long? bufferFileSizeLimitBytes,
+            long bufferLogShippingInterval,
+            string connectionGlobalHeaders,
+            LoggingLevelSwitch levelSwitch)
         {
             return Elasticsearch(loggerSinkConfiguration, nodeUris, indexFormat, templateName, typeName, batchPostingLimit, period, inlineFields, restrictedToMinimumLevel, bufferBaseFilename,
                 bufferFileSizeLimitBytes, bufferLogShippingInterval, connectionGlobalHeaders, levelSwitch, 5, EmitEventFailureHandling.WriteToSelfLog, 100000, null, false,
@@ -181,7 +181,7 @@ namespace Serilog
             ILogEventSink failureSink = null,
             long? singleEventSizePostingLimit = null,
             int? bufferFileCountLimit = null,
-            Dictionary<string,string> templateCustomSettings = null,
+            Dictionary<string, string> templateCustomSettings = null,
             ElasticOpType batchAction = ElasticOpType.Index)
         {
             if (string.IsNullOrEmpty(nodeUris))
@@ -204,7 +204,7 @@ namespace Serilog
                 options.TemplateName = templateName;
             }
 
-            options.TypeName = !string.IsNullOrWhiteSpace(typeName) ? typeName : null;
+            //options.TypeName = !string.IsNullOrWhiteSpace(typeName) ? typeName : null;
 
             options.BatchPostingLimit = batchPostingLimit;
             options.BatchAction = batchAction;
@@ -216,7 +216,7 @@ namespace Serilog
 
             if (!string.IsNullOrWhiteSpace(bufferBaseFilename))
             {
-                Path.GetFullPath(bufferBaseFilename);       // validate path
+                Path.GetFullPath(bufferBaseFilename); // validate path
                 options.BufferBaseFilename = bufferBaseFilename;
             }
 
@@ -229,6 +229,7 @@ namespace Serilog
             {
                 options.BufferFileCountLimit = bufferFileCountLimit.Value;
             }
+
             options.BufferLogShippingInterval = TimeSpan.FromMilliseconds(bufferLogShippingInterval);
 
             if (!string.IsNullOrWhiteSpace(connectionGlobalHeaders))
