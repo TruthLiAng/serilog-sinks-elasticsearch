@@ -311,9 +311,13 @@ namespace Serilog.Sinks.Elasticsearch
                 IndexName = indexName;
                 Pipeline = pipeline;
                 Id = id;
+                //if (mappingType != "Esv8")
+                //{
+                //    MappingType = mappingType;
+                //}
             }
 
-            [DataMember(Name = "_type")] public string MappingType { get; }
+            //[DataMember(Name = "_type")] public string MappingType { get; }
 
             [DataMember(Name = "_index")] public string IndexName { get; }
 
